@@ -78,5 +78,5 @@ Accessing the Pi over local network is cool, but how about getting to it over th
 6. On the dashboard you will see your pi trying to join this network, approve it.
 7. Done, you can now ping the zerotier ip from your computer running zerotier from anywhere in the world!
 
-## Step 3 Install ROS2:
+## Step 3: Install ROS2
 
