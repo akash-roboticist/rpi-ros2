@@ -130,7 +130,7 @@ ros2 run demo_nodes_py talker
 
 You would see outputs on both terminals
 ```
-ubuntu@ubuntu:~$ ros2 run demo_nodes_py listener
+user@ubuntu-pi:~$ ros2 run demo_nodes_py listener
 [INFO] [listener]: I heard: [Hello World: 0]
 [INFO] [listener]: I heard: [Hello World: 1]
 [INFO] [listener]: I heard: [Hello World: 2]
@@ -139,7 +139,7 @@ ubuntu@ubuntu:~$ ros2 run demo_nodes_py listener
 [INFO] [listener]: I heard: [Hello World: 5]
 ```
 ```
-ubuntu@ubuntu:~$ ros2 run demo_nodes_py talker
+user@ubuntu-pi:~$ ros2 run demo_nodes_py talker
 [INFO] [talker]: Publishing: "Hello World: 0"
 [INFO] [talker]: Publishing: "Hello World: 1"
 [INFO] [talker]: Publishing: "Hello World: 2"
@@ -151,5 +151,76 @@ ubuntu@ubuntu:~$ ros2 run demo_nodes_py talker
 Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”! ROS 2 is built on top of DDS/RTPS as its middleware, which provides discovery, serialization and transportation. You can read more about it (here](https://index.ros.org/doc/ros2/Concepts/DDS-and-ROS-middleware-implementations/); in a nutshell, you dont need a central ROS master anymore, messages are passed over DDS/RTPS and are available to the entire network. 
 This does raise questions on security, will my data be accessible to the entire network I am on? Yes; unless you use the Authentication / Access control / Cryptographic plugins , you can read up more on that [here](https://design.ros2.org/articles/ros2_dds_security.html)
 
-## Step 4: Install ROS2 on your computer
+## Step 4: Install ROS2 on your workstation
+Similar to the Raspberry Pi, we will use Ubuntu 18.04 for the workstation. You can install this on your coputer natively (Recommended, but be careful, YOU MIGHT ERASE YOUR COMPUTER IN DUE PROCESS. YOU HAVE BEEN WARNED!). Else you can setup a Virtual Machine using VirtualBox / VM Ware Player (less risk, but sacrifices on performance).
 
+- Ubuntu install images are available at http://releases.ubuntu.com/18.04/ ; here's a [direct download link](http://releases.ubuntu.com/18.04/ubuntu-18.04.3-desktop-amd64.iso) for 18.04.3 desktop amd64
+- [OSBOXES team publishes](https://www.osboxes.org/ubuntu/#ubuntu-1804-vbox) ready to use VMs for Virtualbox and VMWare Player, just in case you dont want to install the OS yourself.
+
+(Optional) Setup a ZeroTier client on this system too if you are intending to the P2P VPN.
+In case, you are planning to use a virtual machine, and are not installing ZeroTier, do set the network adapter on your virtual machine in "Bridge mode" instead of "NAT", that way you get a "direct link" into your VM to the local network.
+
+
+The steps for ROS2 installation are practically same as for the Raspberry Pi, the only change being, instead of installing `ros-eloquent-ros-base` we will install `ros-eloquent-ros-desktop` ; a condensed version of the commands are below -
+
+```
+# Setup locale
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Setup sources
+sudo apt update && sudo apt install curl gnupg2 lsb-release
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+
+# Install ROS2 desktop packages
+sudo apt update
+sudo apt install ros-eloquent-ros-desktop
+sudo source /opt/ros/eloquent/setup.bash
+sudo echo "source /opt/ros/eloquent/setup.sh" >> ~/.bashrc
+
+# Install argcomplete (optional, but recommended)
+sudo apt install python3-argcomplete
+```
+
+Done! You now have a functioning ROS2 workstation. 
+
+## Step 5: Publish from Raspberry Pi to Workstation
+Let's see if we are able to publish between the Raspberry Pi and our Workstation.
+- On the Raspberry Pi, run the listner demo `user@ubuntu-pi:~$ ros2 run demo_nodes_py listener`
+- On the Workstation, run the talker demo `user@ubuntu-desktop:~$ ros2 run demo_nodes_py talker`
+You should see data on both terminals!
+```
+user@ubuntu-desktop:~$ ros2 run demo_nodes_py talker
+[INFO] [talker]: Publishing: "Hello World: 0"
+[INFO] [talker]: Publishing: "Hello World: 1"
+[INFO] [talker]: Publishing: "Hello World: 2"
+[INFO] [talker]: Publishing: "Hello World: 3"
+[INFO] [talker]: Publishing: "Hello World: 4"
+[INFO] [talker]: Publishing: "Hello World: 5"
+[INFO] [talker]: Publishing: "Hello World: 6"
+[INFO] [talker]: Publishing: "Hello World: 7"
+[INFO] [talker]: Publishing: "Hello World: 8"
+[INFO] [talker]: Publishing: "Hello World: 9"
+[INFO] [talker]: Publishing: "Hello World: 10"
+```
+```
+user@ubuntu-pi:~$ ros2 run demo_nodes_py listener
+[INFO] [listener]: I heard: [Hello World: 0]
+[INFO] [listener]: I heard: [Hello World: 1]
+[INFO] [listener]: I heard: [Hello World: 2]
+[INFO] [listener]: I heard: [Hello World: 3]
+[INFO] [listener]: I heard: [Hello World: 4]
+[INFO] [listener]: I heard: [Hello World: 5]
+[INFO] [listener]: I heard: [Hello World: 6]
+[INFO] [listener]: I heard: [Hello World: 7]
+[INFO] [listener]: I heard: [Hello World: 8]
+[INFO] [listener]: I heard: [Hello World: 9]
+[INFO] [listener]: I heard: [Hello World: 10]
+```
+
+Thats it, you have a functioning distributed ROS2 setup!
+
+## Step 5 Bonus: Write a subscriber to read data from a microcontroller and publish to our ROS2 network [WIP]
