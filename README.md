@@ -78,7 +78,7 @@ Accessing the Pi over local network is cool, but how about getting to it over th
 6. On the dashboard you will see your pi trying to join this network, approve it.
 7. Done, you can now ping the zerotier ip from your computer running zerotier from anywhere in the world!
 
-## Step 3: Install ROS2
+## Step 3: Install ROS2 on Raspberry Pi
 For this setup we will use the latest stable release of ROS2 - [Eloquent Elusor](https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/). Though Dashing is planned to have a [longer support](https://index.ros.org/doc/ros2/Releases/) than Eloquent, the (feature updates and changes)[https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/#id2], makes it a better choice to get started. 
 
 Official install instructions for Eloquent are at https://index.ros.org/doc/ros2/Installation/Eloquent/ , lets get started. We will install from [debains](https://index.ros.org/doc/ros2/Installation/Eloquent/Linux-Install-Debians/).
@@ -148,4 +148,8 @@ ubuntu@ubuntu:~$ ros2 run demo_nodes_py talker
 [INFO] [talker]: Publishing: "Hello World: 5"
 ```
 
-Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”!
+Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”! ROS 2 is built on top of DDS/RTPS as its middleware, which provides discovery, serialization and transportation. You can read more about it (here](https://index.ros.org/doc/ros2/Concepts/DDS-and-ROS-middleware-implementations/); in a nutshell, you dont need a central ROS master anymore, messages are passed over DDS/RTPS and are available to the entire network. 
+This does raise questions on security, will my data be accessible to the entire network I am on? Yes; unless you use the Authentication / Access control / Cryptographic plugins , you can read up more on that [here](https://design.ros2.org/articles/ros2_dds_security.html)
+
+## Step 4: Install ROS2 on your computer
+
