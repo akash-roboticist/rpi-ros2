@@ -10,7 +10,7 @@ If do no have another computer or you really need to run UI on the Raspberry Pi,
 - The latest Ubuntu Bionic LTS images can be found on http://cdimage.ubuntu.com/releases/18.04.3/release/ ; for convinience, [here's the link](http://cdimage.ubuntu.com/releases/18.04.3/release/ubuntu-18.04.3-preinstalled-server-arm64+raspi3.img.xz) to downlaod the arm64 (not armhf) preinstalled server image for Raspberry Pi 3
 - Use instructions [here](https://ubuntu.com/download/iot/installation-media) to burn the image to your SD card. If you are using Ubuntu, this image can also be burned using the gnome-disk-utility (aka **disks**).
 
-## Step 2: Gimme internet!
+## Step 2: Gimme internet
 There are a few ways we can get get started to setup internet on the Raspberry Pi. The default user for the Ubuntu image is ubuntu, the password too is ubuntu.
 1. Using a Keyboard, HDMI monitor
 -- On boot, login as user **ubuntu** and password **ubuntu**
@@ -66,7 +66,7 @@ network:
 -- Here are a couple of guides - [Instructables](https://www.instructables.com/id/Raspberry-Pi-Serial-Console/) [eLinux](https://elinux.org/RPi_Serial_Connection)
 -- Similar to above, once you are logged in, use steps in (1) to set up the wifi.
 
-## Step 2 Bonus:
+## Step 2 Bonus: Free P2P VPN!
 Accessing the Pi over local network is cool, but how about getting to it over the internet?!
 [ZeroTier](https://www.zerotier.com/) lets you setup a secure p2p netowork. You can readup more on its docs on [here](https://www.zerotier.com/manual/).
 
