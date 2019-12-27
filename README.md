@@ -1,4 +1,4 @@
-# Quickstart guide to get ROS2 running on your Raspberry Pi SBC
+# Quickstart guide to get ROS2 running on your Raspberry Pi SBC and using your computer to visualize
 
 For this guide, I will be using Raspberry Pi 3B, but you should be able to use Raspberry Pi 2, 3 or 4 or any other SBC in this class
 We will also go thru a few additional steps to set up a microcontroller to publish data to our ROS2 system.
@@ -79,4 +79,73 @@ Accessing the Pi over local network is cool, but how about getting to it over th
 7. Done, you can now ping the zerotier ip from your computer running zerotier from anywhere in the world!
 
 ## Step 3: Install ROS2
+For this setup we will use the latest stable release of ROS2 - [Eloquent Elusor](https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/). Though Dashing is planned to have a [longer support](https://index.ros.org/doc/ros2/Releases/) than Eloquent, the (feature updates and changes)[https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/#id2], makes it a better choice to get started. 
 
+Official install instructions for Eloquent are at https://index.ros.org/doc/ros2/Installation/Eloquent/ , lets get started. We will install from [debains](https://index.ros.org/doc/ros2/Installation/Eloquent/Linux-Install-Debians/).
+
+For ease of install, here are all the commands you need to run -
+```
+# Setup locale
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Setup sources
+sudo apt update && sudo apt install curl gnupg2 lsb-release
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+
+# Install ROS2 base packages (since we will not be running RViz on the Raspberry PI, no need to install the full desktop paskages)
+sudo apt update
+sudo apt install ros-eloquent-ros-base
+source /opt/ros/eloquent/setup.bash
+
+# Install argcomplete (optional, but recommended)
+sudo apt install python3-argcomplete
+```
+
+Add the line `source /opt/ros/eloquent/setup.bash` to your `.bashrc` so that each of your terminal instance automatically sources the setup files.
+```
+sudo echo "source /opt/ros/eloquent/setup.sh" >> ~/.bashrc
+```
+
+Thats it! Your Raspberry Pi now has ROS2 Eloquent Elusor.
+
+
+If you would like to try out a couple of quick demos, install the demo package
+```
+sudo apt install ros-eloquent-demo-nodes-py
+```
+
+and run the listner node in one terminal 
+```
+ros2 run demo_nodes_py listener
+```
+
+and the talker node in another.
+```
+ros2 run demo_nodes_py talker
+```
+
+You would see outputs on both terminals
+```
+ubuntu@ubuntu:~$ ros2 run demo_nodes_py listener
+[INFO] [listener]: I heard: [Hello World: 0]
+[INFO] [listener]: I heard: [Hello World: 1]
+[INFO] [listener]: I heard: [Hello World: 2]
+[INFO] [listener]: I heard: [Hello World: 3]
+[INFO] [listener]: I heard: [Hello World: 4]
+[INFO] [listener]: I heard: [Hello World: 5]
+```
+```
+ubuntu@ubuntu:~$ ros2 run demo_nodes_py talker
+[INFO] [talker]: Publishing: "Hello World: 0"
+[INFO] [talker]: Publishing: "Hello World: 1"
+[INFO] [talker]: Publishing: "Hello World: 2"
+[INFO] [talker]: Publishing: "Hello World: 3"
+[INFO] [talker]: Publishing: "Hello World: 4"
+[INFO] [talker]: Publishing: "Hello World: 5"
+```
+
+Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”!
