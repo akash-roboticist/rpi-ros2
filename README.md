@@ -224,3 +224,5 @@ user@ubuntu-pi:~$ ros2 run demo_nodes_py listener
 Thats it, you have a functioning distributed ROS2 setup!
 
 ## Step 5 Bonus: Write a subscriber to read data from a microcontroller and publish to our ROS2 network [WIP]
+
+## Step 6: Visualize IMU data in rviz2 [WIP]
