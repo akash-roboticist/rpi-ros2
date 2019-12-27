@@ -66,7 +66,7 @@ network:
 -- Here are a couple of guides - [Instructables](https://www.instructables.com/id/Raspberry-Pi-Serial-Console/) [eLinux](https://elinux.org/RPi_Serial_Connection)
 -- Similar to above, once you are logged in, use steps in (1) to set up the wifi.
 
-## Step 2 Bonus!:
+## Step 2 Bonus:
 Accessing the Pi over local network is cool, but how about getting to it over the internet?!
 [ZeroTier](https://www.zerotier.com/) lets you setup a secure p2p netowork. You can readup more on its docs on [here](https://www.zerotier.com/manual/).
 
@@ -78,5 +78,5 @@ Accessing the Pi over local network is cool, but how about getting to it over th
 6. On the dashboard you will see your pi trying to join this network, approve it.
 7. Done, you can now ping the zerotier ip from your computer running zerotier from anywhere in the world!
 
-## Step 3 Install ROS2!
+## Step 3 Install ROS2:
 
