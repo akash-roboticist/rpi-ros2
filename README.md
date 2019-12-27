@@ -10,7 +10,7 @@ If do no have another computer or you really need to run UI on the Raspberry Pi,
 - The latest Ubuntu Bionic LTS images can be found on http://cdimage.ubuntu.com/releases/18.04.3/release/ ; for convinience, [here's the link](http://cdimage.ubuntu.com/releases/18.04.3/release/ubuntu-18.04.3-preinstalled-server-arm64+raspi3.img.xz) to downlaod the arm64 (not armhf) preinstalled server image for Raspberry Pi 3
 - Use instructions [here](https://ubuntu.com/download/iot/installation-media) to burn the image to your SD card. If you are using Ubuntu, this image can also be burned using the gnome-disk-utility (aka **disks**).
 
-## Step 2: Gimme internet
+## Step 2: Gimme Internet
 There are a few ways we can get get started to setup internet on the Raspberry Pi. The default user for the Ubuntu image is ubuntu, the password too is ubuntu.
 1. Using a Keyboard, HDMI monitor
 -- On boot, login as user **ubuntu** and password **ubuntu**
