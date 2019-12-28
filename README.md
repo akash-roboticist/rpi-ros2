@@ -148,7 +148,7 @@ user@ubuntu-pi:~$ ros2 run demo_nodes_py talker
 [INFO] [talker]: Publishing: "Hello World: 5"
 ```
 
-Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”! ROS 2 is built on top of DDS/RTPS as its middleware, which provides discovery, serialization and transportation. You can read more about it (here](https://index.ros.org/doc/ros2/Concepts/DDS-and-ROS-middleware-implementations/); in a nutshell, you dont need a central ROS master anymore, messages are passed over DDS/RTPS and are available to the entire network. 
+Noticed something odd? Yep, there is no roscore; ROS2 – ending the ROS “slave trade”! ROS 2 is built on top of DDS/RTPS as its middleware, which provides discovery, serialization and transportation. You can read more about it [here](https://index.ros.org/doc/ros2/Concepts/DDS-and-ROS-middleware-implementations/); in a nutshell, you dont need a central ROS master anymore, messages are passed over DDS/RTPS and are available to the entire network. 
 This does raise questions on security, will my data be accessible to the entire network I am on? Yes; unless you use the Authentication / Access control / Cryptographic plugins , you can read up more on that [here](https://design.ros2.org/articles/ros2_dds_security.html)
 
 ## Step 4: Install ROS2 on your workstation
