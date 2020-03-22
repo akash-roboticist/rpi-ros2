@@ -78,7 +78,30 @@ Accessing the Pi over local network is cool, but how about getting to it over th
 6. On the dashboard you will see your pi trying to join this network, approve it.
 7. Done, you can now ping the zerotier ip from your computer running zerotier from anywhere in the world!
 
-## Step 3: Install ROS2 on Raspberry Pi
+## Step 3A: Install Micro-XRCE-Agent on Raspberry Pi
+The folks at eProsima have developed a solution to connect micorcontrollers to DDS networks - [Micro XRCE-DDS](https://micro-xrce-dds.readthedocs.io/en/latest/index.html). We will be using this in the later part of the tutorial to connect a microcontroller to our ROS system. It is better to do this before installing ROS, as that avoids dependancy conflicts.
+
+Install Asio and TinyXML2 libraries
+```
+sudo apt install libasio-dev libtinyxml2-dev
+```
+Installing the Micro-XRCE Agent stand-alone
+```
+$ git clone https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+$ cd Micro-XRCE-DDS-Agent
+$ mkdir build && cd build
+```
+
+On Linux, inside of build folder, execute the following commands:
+```
+$ cmake ..
+$ make
+$ sudo make install
+```
+This should build and install the Micro-XRCE Agent, we will use that to connect with a microcontroller (Micro-XRCE Client)
+
+
+## Step 3B: Install ROS2 on Raspberry Pi
 For this setup we will use the latest stable release of ROS2 - [Eloquent Elusor](https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/). Though Dashing is planned to have a [longer support](https://index.ros.org/doc/ros2/Releases/) than Eloquent, the (feature updates and changes)[https://index.ros.org/doc/ros2/Releases/Release-Eloquent-Elusor/#id2], makes it a better choice to get started. 
 
 Official install instructions for Eloquent are at https://index.ros.org/doc/ros2/Installation/Eloquent/ , lets get started. We will install from [debains](https://index.ros.org/doc/ros2/Installation/Eloquent/Linux-Install-Debians/).
